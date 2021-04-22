@@ -1,0 +1,19 @@
+@import "../../index.scss";
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 50px;
+
+    button {
+        border: 2px solid $violet-button;
+        background-color: $white;
+        border-radius: $border-radius;
+        width: 148px;
+        height: 43px;
+        color: $violet-button;
+        font-weight: 700;
+        font-size: 14px;
+    }
+}

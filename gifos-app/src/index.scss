@@ -1,7 +1,20 @@
+$regular-violet: #572EE5;
+$violet-button: #6809E1;
+$white: #ffffff;
+$black: #121212;
+
+$border-radius: 61px;
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.App {
+  width: 900px;
+  margin: auto;
 }
 
 body {

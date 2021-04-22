@@ -1,0 +1,34 @@
+@import "../../index.scss";
+
+.search-section-container {
+    text-align: center;
+    h1 {
+        color: $regular-violet;
+        margin: 0px 0px 15px;
+    }
+
+    .search-section-input {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        input {
+            width: 470px;
+            height: 52px;
+            padding: 20px;
+            font-size: 18px;
+            border: 1px solid $black;
+            border-top-left-radius: $border-radius;
+            border-bottom-left-radius: $border-radius;
+        }
+
+        button {
+            border-top-right-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+            background-color: $violet-button;
+            border: none;
+            height: 52px;
+            width: 86px;
+        }
+    }
+}
