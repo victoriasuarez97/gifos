@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 
 import { Main } from "../main/Main";
@@ -30,7 +31,7 @@ export const Search = () => {
                 setCall(false);
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
 
     }, [call, search, loading])
