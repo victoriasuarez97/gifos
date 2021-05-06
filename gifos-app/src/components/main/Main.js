@@ -1,6 +1,7 @@
 import React from "react";
 
 import LoadingAnimation from "../../assets/icons/loader-dark.svg";
+import NoResultsIllustration from "../../assets/img/pablita-320.png";
 
 import "./Main.scss";
 
@@ -13,7 +14,17 @@ export const Main = ({ results, loading, noResults }) => {
                 {
                     loading 
                     ? (<object type="image/svg+xml" data={LoadingAnimation}>svg-animation</object>)
-                    : ("Por favor, ingresá un valor para realizar la búsqueda")
+                    : (
+                        <div className="no-results-wrapper">
+                            <p className="no-results-text" tabIndex="0">{"No encontramos resultados de tu búsqueda :("}</p>
+                            <img
+                                src={NoResultsIllustration}
+                                alt="sin resultados"
+                                className="no-results-illustration"
+                                tabIndex="0"
+                            />
+                        </div>
+                    )
                 }
             </div>
             <div className="main-section-gifs-wrapper">

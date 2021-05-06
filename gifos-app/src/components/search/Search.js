@@ -21,36 +21,45 @@ export const Search = () => {
     let apiAutocomplete = fetch(`https://api.giphy.com/v1/gifs/search/tags?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=6&offset=0&rating=g&lang=es`);
 
     useEffect(() => {
-        if (call) {
-            setLoading(true);
-            apiSearch
-            .then((response) => (
-                response.json()
-            ))
-            .then((data) => {
-                setResults(data)
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-            .finally(() => {
-                setLoading(false);
-                setCall(false);
-            })
+        const getSearchResults = async () => {
+            if (call) {
+                setLoading(true);
+                apiSearch
+                .then((response) => (
+                    response.json()
+                ))
+                .then((data) => {
+                    setResults(data)
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                    setCall(false);
+                    setNoResults(false);
+                })
+            }
         }
+
+        getSearchResults();
     }, [call])
 
     useEffect(() => {
-        if (search) {
-            apiAutocomplete
-            .then((response) => 
-                response.json())
-            .then((response) => {
-                setAutocompleteResults(response)
-            })
-            .catch((error) =>
-                console.error(error))
+        const geAutocompleteResults = async () => {
+            if (search) {
+                apiAutocomplete
+                .then((response) => 
+                    response.json())
+                .then((response) => {
+                    setAutocompleteResults(response)
+                })
+                .catch((error) =>
+                    console.error(error))
             }
+        }
+
+        geAutocompleteResults();
     }, [
         search,
         setCall
