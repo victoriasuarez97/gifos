@@ -13,13 +13,17 @@ export const Search = () => {
     const [results, setResults] = useState([]);
     const [call, setCall] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [noResults, setNoResults] = useState(false);
+    const [autocompleteResults, setAutocompleteResults] = useState([]);
 
-    let api = fetch(`https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=12&offset=0&rating=g&lang=es`);
+    let apiSearch = fetch(`https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=12&offset=0&rating=g&lang=es`);
+
+    let apiAutocomplete = fetch(`https://api.giphy.com/v1/gifs/search/tags?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=6&offset=0&rating=g&lang=es`);
 
     useEffect(() => {
         try {
             if (call) {
-                api
+                apiSearch
                 .then((response) => (
                     response.json()
                 ))
@@ -27,22 +31,55 @@ export const Search = () => {
                     setResults(data)
                     setLoading(false);
                 });
-
-                setCall(false);
             }
         } catch (error) {
-            console.error(error)
+           console.error(error)
         }
 
-    }, [call, search, loading])
+        setCall(false);
+        setNoResults(false);
+    }, [
+        call,
+        search,
+        loading,
+        setResults,
+    ])
 
-    const handleClick = (e) => {
+    useEffect(() => {
+        try {
+            if (search) {
+            apiAutocomplete
+                .then((response) => 
+                    response.json())
+                .then((response) => {
+                    setAutocompleteResults(response)
+                });
+            }
+        }
+        catch (error) {
+           console.error(error);
+        }
+    }, [search, setAutocompleteResults, setCall])
+
+    const handleInput = (e) => {
         setSearch(e.target.value)
     }
 
     const handleApiCall = () => {
+        if (search !== "") {
+            setCall(true);
+            setLoading(true);
+        } else {
+            setCall(false);
+            setNoResults(true);
+            setResults("")
+        }
+    }
+
+    const handleSuggestions = (searched) => {
+        setSearch(searched);
         setCall(true);
-        setLoading(true);
+        setAutocompleteResults("");
     }
 
     return(
@@ -55,14 +92,31 @@ export const Search = () => {
                     value={search}
                     type="search"
                     placeholder="Buscar gifs"
-                    onChange={handleClick}
+                    onChange={handleInput}
                 />
                 <button onClick={handleApiCall}>
                     <img src={SearchIcon} alt="search"/>
                 </button>
             </div>
+            <div className="autocomplete-suggestions-wrapper">
+                {
+                    autocompleteResults?.data?.map((suggestions, i) =>
+                        <div 
+                            key={i}
+                            className="suggestion"
+                            onClick={() => handleSuggestions(suggestions.name)}
+                            tabIndex="0">
+                                {suggestions.name}
+                        </div>
+                    )
+                }
+            </div>
         </div>
-        <Main results={results} loading={loading} />
+        <Main
+            results={results}
+            loading={loading}
+            noResults={noResults}
+        />
     </>
     )
 }

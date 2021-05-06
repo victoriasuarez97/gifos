@@ -31,4 +31,24 @@
             width: 86px;
         }
     }
+
+    .autocomplete-suggestions-wrapper {
+        background-color: $regular-violet;
+        color: $white;
+        border-radius: 30px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        width: 450px;
+        margin: 0px  0px 0px 192px;
+
+        .suggestion {
+            padding: 10px 0px;
+            border: 1px solid $white;
+            cursor: pointer;
+        }
+    }
+
+    .autocomplete-suggestions-wrapper-hidden {
+        display: none;
+    }
 }
