@@ -21,45 +21,40 @@ export const Search = () => {
     let apiAutocomplete = fetch(`https://api.giphy.com/v1/gifs/search/tags?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=6&offset=0&rating=g&lang=es`);
 
     useEffect(() => {
-        try {
-            if (call) {
-                apiSearch
-                .then((response) => (
-                    response.json()
-                ))
-                .then((data) => {
-                    setResults(data)
-                    setLoading(false);
-                });
-            }
-        } catch (error) {
-           console.error(error)
+        if (call) {
+            setLoading(true);
+            apiSearch
+            .then((response) => (
+                response.json()
+            ))
+            .then((data) => {
+                setResults(data)
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+            .finally(() => {
+                setLoading(false);
+                setCall(false);
+            })
         }
-
-        setCall(false);
-        setNoResults(false);
-    }, [
-        call,
-        search,
-        loading,
-        setResults,
-    ])
+    }, [call])
 
     useEffect(() => {
-        try {
-            if (search) {
+        if (search) {
             apiAutocomplete
-                .then((response) => 
-                    response.json())
-                .then((response) => {
-                    setAutocompleteResults(response)
-                });
+            .then((response) => 
+                response.json())
+            .then((response) => {
+                setAutocompleteResults(response)
+            })
+            .catch((error) =>
+                console.error(error))
             }
-        }
-        catch (error) {
-           console.error(error);
-        }
-    }, [search, setAutocompleteResults, setCall])
+    }, [
+        search,
+        setCall
+    ])
 
     const handleInput = (e) => {
         setSearch(e.target.value)
@@ -68,7 +63,6 @@ export const Search = () => {
     const handleApiCall = () => {
         if (search !== "") {
             setCall(true);
-            setLoading(true);
         } else {
             setCall(false);
             setNoResults(true);

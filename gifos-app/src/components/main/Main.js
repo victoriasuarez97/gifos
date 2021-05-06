@@ -1,5 +1,7 @@
 import React from "react";
 
+import LoadingAnimation from "../../assets/icons/loader-dark.svg";
+
 import "./Main.scss";
 
 export const Main = ({ results, loading, noResults }) => {
@@ -7,9 +9,13 @@ export const Main = ({ results, loading, noResults }) => {
     return(
         <div className="main-section-container">
             <h3 tabIndex="0">{ results.length > 0 ? "Resultados de la búsqueda" : ""}</h3>
-            <p className={loading || noResults ? "text-shown" : "text-hidden"}>
-                {loading ? "Buscando..." : "Por favor, ingresá un valor para realizar la búsqueda"}
-            </p>
+            <div className={loading || noResults ? "show-content" : "hide-content"}>
+                {
+                    loading 
+                    ? (<object type="image/svg+xml" data={LoadingAnimation}>svg-animation</object>)
+                    : ("Por favor, ingresá un valor para realizar la búsqueda")
+                }
+            </div>
             <div className="main-section-gifs-wrapper">
                 {   
                     results?.data?.map((gif, i) => (
