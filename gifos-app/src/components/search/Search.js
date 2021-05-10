@@ -11,7 +11,6 @@ import "./Search.scss";
 export const Search = () => {
     const [search, setSearch] = useState("");
     const [results, setResults] = useState([]);
-    const [call, setCall] = useState(false);
     const [loading, setLoading] = useState(false);
     const [noResults, setNoResults] = useState(false);
     const [autocompleteResults, setAutocompleteResults] = useState([]);
@@ -21,49 +20,41 @@ export const Search = () => {
     let apiAutocomplete = fetch(`https://api.giphy.com/v1/gifs/search/tags?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=6&offset=0&rating=g&lang=es`);
 
     useEffect(() => {
-        const getSearchResults = async () => {
-            if (call) {
-                setLoading(true);
-                apiSearch
-                .then((response) => (
-                    response.json()
-                ))
-                .then((data) => {
-                    setResults(data)
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                    setCall(false);
-                    setNoResults(false);
-                })
-            }
+        const getSearchResults = () => {
+            setLoading(true);
+            apiSearch
+            .then((response) => (
+                response.json()
+            ))
+            .then((data) => {
+                setResults(data)
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+            .finally(() => {
+                setLoading(false);
+                setNoResults(false);
+            })
         }
 
         getSearchResults();
-    }, [call])
+    }, [search])
 
     useEffect(() => {
-        const geAutocompleteResults = async () => {
-            if (search) {
-                apiAutocomplete
-                .then((response) => 
-                    response.json())
-                .then((response) => {
-                    setAutocompleteResults(response)
-                })
-                .catch((error) =>
-                    console.error(error))
-            }
+        const getAutocompleteResults = () => {
+            apiAutocomplete
+            .then((response) => 
+                response.json())
+            .then((response) => {
+                setAutocompleteResults(response)
+            })
+            .catch((error) =>
+                console.error(error))
         }
 
-        geAutocompleteResults();
-    }, [
-        search,
-        setCall
-    ])
+        getAutocompleteResults();
+    }, [search])
 
     const handleInput = (e) => {
         setSearch(e.target.value)
@@ -71,18 +62,14 @@ export const Search = () => {
 
     const handleApiCall = () => {
         if (search !== "") {
-            setCall(true);
+            return;
         } else {
-            setCall(false);
             setNoResults(true);
-            setResults("")
         }
     }
 
     const handleSuggestions = (searched) => {
         setSearch(searched);
-        setCall(true);
-        setAutocompleteResults("");
     }
 
     return(

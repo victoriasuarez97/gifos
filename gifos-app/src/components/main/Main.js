@@ -9,7 +9,7 @@ export const Main = ({ results, loading, noResults }) => {
 
     return(
         <div className="main-section-container">
-            <h3 tabIndex="0">{ results.length > 0 ? "Resultados de la búsqueda" : ""}</h3>
+            <h3 tabIndex="0">{ results?.data?.length > 0 ? "Resultados de la búsqueda" : ""}</h3>
             <div className={loading || noResults ? "show-content" : "hide-content"}>
                 {
                     loading 
