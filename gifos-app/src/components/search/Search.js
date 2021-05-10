@@ -15,14 +15,15 @@ export const Search = () => {
     const [noResults, setNoResults] = useState(false);
     const [autocompleteResults, setAutocompleteResults] = useState([]);
 
-    let apiSearch = fetch(`https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=12&offset=0&rating=g&lang=es`);
+    const apiSearch = `${process.env.REACT_APP_API_SEARCH}?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=12&offset=0&rating=g&lang=es`;
 
-    let apiAutocomplete = fetch(`https://api.giphy.com/v1/gifs/search/tags?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=6&offset=0&rating=g&lang=es`);
+    const apiAutocomplete = `${process.env.REACT_APP_API_AUTOCOMPLETE}?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=6&offset=0&rating=g&lang=es`;
 
     useEffect(() => {
         const getSearchResults = () => {
             setLoading(true);
-            apiSearch
+
+            fetch(apiSearch)
             .then((response) => (
                 response.json()
             ))
@@ -43,7 +44,7 @@ export const Search = () => {
 
     useEffect(() => {
         const getAutocompleteResults = () => {
-            apiAutocomplete
+            fetch(apiAutocomplete)
             .then((response) => 
                 response.json())
             .then((response) => {
