@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 50px;
+    padding: 50px;
 
     button {
         border: 2px solid $violet-button;
@@ -15,5 +15,11 @@
         color: $violet-button;
         font-weight: 700;
         font-size: 14px;
+        cursor: pointer;
+    }
+
+    .dark-mode-style {
+        background-color: $violet-button;
+        color: $white;
     }
 }

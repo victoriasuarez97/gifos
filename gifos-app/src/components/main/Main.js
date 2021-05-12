@@ -5,10 +5,10 @@ import NoResultsIllustration from "../../assets/img/pablita-320.png";
 
 import "./Main.scss";
 
-export const Main = ({ results, loading, noResults }) => {
+export const Main = ({ results, loading, noResults, theme }) => {
 
     return(
-        <div className="main-section-container">
+        <div className={`main-section-container ${theme==="dark" ? "dark-mode-main" : ""}`}>
             <h3 tabIndex="0">{ results?.data?.length > 0 ? "Resultados de la búsqueda" : ""}</h3>
             <div className={loading || noResults ? "show-content" : "hide-content"}>
                 {

@@ -8,12 +8,13 @@ import SearchIcon from "../../assets/icons/icon-search-mod-noc.svg";
 
 import "./Search.scss";
 
-export const Search = () => {
+export const Search = ({ theme }) => {
     const [search, setSearch] = useState("");
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [noResults, setNoResults] = useState(false);
     const [autocompleteResults, setAutocompleteResults] = useState([]);
+    const [isSearched, setIsSearched] = useState(false);
 
     const apiSearch = `${process.env.REACT_APP_API_SEARCH}?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=12&offset=0&rating=g&lang=es`;
 
@@ -28,7 +29,7 @@ export const Search = () => {
                 response.json()
             ))
             .then((data) => {
-                setResults(data)
+                setResults(data);
             })
             .catch((error) => {
                 console.error(error);
@@ -44,18 +45,19 @@ export const Search = () => {
 
     useEffect(() => {
         const getAutocompleteResults = () => {
-            fetch(apiAutocomplete)
-            .then((response) => 
-                response.json())
-            .then((response) => {
-                setAutocompleteResults(response)
-            })
-            .catch((error) =>
-                console.error(error))
+            setIsSearched(true);
+                fetch(apiAutocomplete)
+                .then((response) => 
+                    response.json())
+                .then((response) => {
+                    setAutocompleteResults(response);
+                })
+                .catch((error) =>
+                    console.error(error));
         }
 
         getAutocompleteResults();
-    }, [search])
+    }, [search, isSearched])
 
     const handleInput = (e) => {
         setSearch(e.target.value)
@@ -63,6 +65,7 @@ export const Search = () => {
 
     const handleApiCall = () => {
         if (search !== "") {
+            setAutocompleteResults("");
             return;
         } else {
             setNoResults(true);
@@ -71,6 +74,7 @@ export const Search = () => {
 
     const handleSuggestions = (searched) => {
         setSearch(searched);
+        setAutocompleteResults("");
     }
 
     return(
@@ -107,6 +111,7 @@ export const Search = () => {
             results={results}
             loading={loading}
             noResults={noResults}
+            theme={theme}
         />
     </>
     )
