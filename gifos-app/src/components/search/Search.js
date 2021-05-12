@@ -14,7 +14,6 @@ export const Search = ({ theme }) => {
     const [loading, setLoading] = useState(false);
     const [noResults, setNoResults] = useState(false);
     const [autocompleteResults, setAutocompleteResults] = useState([]);
-    const [isSearched, setIsSearched] = useState(false);
 
     const apiSearch = `${process.env.REACT_APP_API_SEARCH}?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=12&offset=0&rating=g&lang=es`;
 
@@ -45,7 +44,6 @@ export const Search = ({ theme }) => {
 
     useEffect(() => {
         const getAutocompleteResults = () => {
-            setIsSearched(true);
                 fetch(apiAutocomplete)
                 .then((response) => 
                     response.json())
@@ -57,7 +55,7 @@ export const Search = ({ theme }) => {
         }
 
         getAutocompleteResults();
-    }, [search, isSearched])
+    }, [search])
 
     const handleInput = (e) => {
         setSearch(e.target.value)
@@ -79,32 +77,34 @@ export const Search = ({ theme }) => {
 
     return(
         <>
-        <div className="search-section-container">
+        <div className={`search-section-container ${theme === "dark" && "dark-mode-search"}`}>
             <h1 tabIndex="0">¡Inspirate y buscá los mejores <strong>GIFS</strong>!</h1>
             <img src={illustration} alt="illustration" tabIndex="0"/>
-            <div className="search-section-input">
-                <input
-                    value={search}
-                    type="search"
-                    placeholder="Buscar gifs"
-                    onChange={handleInput}
-                />
-                <button onClick={handleApiCall}>
-                    <img src={SearchIcon} alt="search"/>
-                </button>
-            </div>
-            <div className="autocomplete-suggestions-wrapper">
-                {
-                    autocompleteResults?.data?.map((suggestions, i) =>
-                        <div 
-                            key={i}
-                            className="suggestion"
-                            onClick={() => handleSuggestions(suggestions.name)}
-                            tabIndex="0">
-                                {suggestions.name}
-                        </div>
-                    )
-                }
+            <div className="search-wrapper">
+                <div className="search-section-input">
+                    <input
+                        value={search}
+                        type="search"
+                        placeholder="Buscar gifs"
+                        onChange={handleInput}
+                    />
+                    <button onClick={handleApiCall}>
+                        <img src={SearchIcon} alt="search"/>
+                    </button>
+                </div>
+                <div className="autocomplete-suggestions-wrapper">
+                    {
+                        autocompleteResults?.data?.map((suggestions, i) =>
+                            <div 
+                                key={i}
+                                className="suggestion"
+                                onClick={() => handleSuggestions(suggestions.name)}
+                                tabIndex="0">
+                                    {suggestions.name}
+                            </div>
+                        )
+                    }
+                </div>
             </div>
         </div>
         <Main

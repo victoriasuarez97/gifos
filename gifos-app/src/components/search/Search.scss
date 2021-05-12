@@ -1,6 +1,7 @@
 @import "../../index.scss";
 
 .search-section-container {
+    background: $white;
     text-align: center;
     
     h1 {
@@ -8,49 +9,63 @@
         margin: 0px 0px 15px;
     }
 
-    .search-section-input {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .search-wrapper {
+        width: 556px;
+        margin: auto;
 
-        input {
-            width: 470px;
-            height: 52px;
-            padding: 20px;
-            font-size: 18px;
-            border: 1px solid $black;
-            border-top-left-radius: $border-radius;
-            border-bottom-left-radius: $border-radius;
+        .search-section-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    
+            input {
+                width: 470px;
+                height: 52px;
+                padding: 20px;
+                font-size: 18px;
+                border: 1px solid $black;
+                border-top-left-radius: $border-radius;
+                border-bottom-left-radius: $border-radius;
+            }
+    
+            button {
+                border-top-right-radius: $border-radius;
+                border-bottom-right-radius: $border-radius;
+                background-color: $violet-button;
+                border: none;
+                height: 52px;
+                width: 86px;
+                cursor: pointer;
+            }
         }
-
-        button {
-            border-top-right-radius: $border-radius;
-            border-bottom-right-radius: $border-radius;
-            background-color: $violet-button;
-            border: none;
-            height: 52px;
-            width: 86px;
-            cursor: pointer;
+    
+        .autocomplete-suggestions-wrapper {
+            background-color: $regular-violet;
+            color: $white;
+            border-radius: 30px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            width: 450px;
+            margin: 0px 21px;
+    
+            .suggestion {
+                padding: 10px 0px;
+                border: 1px solid $white;
+                cursor: pointer;
+            }
+        }
+    
+        .autocomplete-suggestions-wrapper-hidden {
+            display: none;
         }
     }
 
-    .autocomplete-suggestions-wrapper {
-        background-color: $regular-violet;
-        color: $white;
-        border-radius: 30px;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-        width: 450px;
-        margin: 0px 0px 0px 31vw;
+}
 
-        .suggestion {
-            padding: 10px 0px;
-            border: 1px solid $white;
-            cursor: pointer;
-        }
-    }
+.dark-mode-search {
+    background: $black;
 
-    .autocomplete-suggestions-wrapper-hidden {
-        display: none;
+    h1 {
+        color: $turquoise;
     }
 }
