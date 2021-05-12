@@ -14,6 +14,7 @@ export const Search = ({ theme }) => {
     const [loading, setLoading] = useState(false);
     const [noResults, setNoResults] = useState(false);
     const [autocompleteResults, setAutocompleteResults] = useState([]);
+    const [showResults, setShowResults] = useState(false);
 
     const apiSearch = `${process.env.REACT_APP_API_SEARCH}?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=12&offset=0&rating=g&lang=es`;
 
@@ -36,6 +37,7 @@ export const Search = ({ theme }) => {
             .finally(() => {
                 setLoading(false);
                 setNoResults(false);
+                setShowResults(false);
             })
         }
 
@@ -64,6 +66,7 @@ export const Search = ({ theme }) => {
     const handleApiCall = () => {
         if (search !== "") {
             setAutocompleteResults("");
+            setShowResults(true);
             return;
         } else {
             setNoResults(true);
@@ -112,6 +115,7 @@ export const Search = ({ theme }) => {
             loading={loading}
             noResults={noResults}
             theme={theme}
+            showResults={showResults}
         />
     </>
     )
