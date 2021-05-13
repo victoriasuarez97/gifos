@@ -25,15 +25,12 @@ export const Search = ({ theme }) => {
             setLoading(true);
 
             fetch(apiSearch)
-            .then((response) => (
-                response.json()
-            ))
-            .then((data) => {
-                setResults(data);
-            })
-            .catch((error) => {
-                console.error(error);
-            })
+            .then((response) => 
+                response.json())
+            .then((data) => 
+                setResults(data))
+            .catch((error) => 
+                console.error(error))
             .finally(() => {
                 setLoading(false);
                 setNoResults(false);
@@ -46,14 +43,13 @@ export const Search = ({ theme }) => {
 
     useEffect(() => {
         const getAutocompleteResults = () => {
-                fetch(apiAutocomplete)
-                .then((response) => 
-                    response.json())
-                .then((response) => {
-                    setAutocompleteResults(response);
-                })
-                .catch((error) =>
-                    console.error(error));
+            fetch(apiAutocomplete)
+            .then((response) => 
+                response.json())
+            .then((response) => 
+                setAutocompleteResults(response))
+            .catch((error) =>
+                console.error(error));
         }
 
         getAutocompleteResults();
@@ -67,7 +63,6 @@ export const Search = ({ theme }) => {
         if (search !== "") {
             setAutocompleteResults("");
             setShowResults(true);
-            return;
         } else {
             setNoResults(true);
         }
@@ -75,7 +70,7 @@ export const Search = ({ theme }) => {
 
     const handleSuggestions = (searched) => {
         setSearch(searched);
-        setAutocompleteResults("");
+        setShowResults(true);
     }
 
     return(

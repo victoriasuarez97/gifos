@@ -8,7 +8,7 @@ import "./Main.scss";
 export const Main = ({ results, loading, noResults, theme, showResults }) => {
 
     return(
-        <div className={`main-section-container ${theme==="dark" ? "dark-mode-main" : ""}`}>
+        <div className={`main-section-container ${theme === "dark" ? "dark-mode-main" : ""}`}>
             <h3 tabIndex="0">{ results?.data?.length > 0 && showResults ? "Resultados de la búsqueda" : ""}</h3>
             <div className={loading || noResults ? "show-content" : "hide-content"}>
                 {
