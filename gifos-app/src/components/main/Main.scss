@@ -2,6 +2,7 @@
 
 .main-section-container {
     background: $white;
+    transition: all 0.3s;
 
     h3  {
         color: $regular-violet;
@@ -59,4 +60,11 @@
     h3 {
         color: $turquoise;
     }
+
+    .no-results-wrapper {
+        .no-results-text {
+            color: $turquoise;
+        }
+    }
+
 }

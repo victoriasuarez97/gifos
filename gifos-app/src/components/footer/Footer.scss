@@ -1,0 +1,18 @@
+@import "../../index.scss";
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: $regular-violet;
+    font-weight: bold;
+    padding: 50px 50px 0px;
+    transition: all 0.3s;
+}
+
+.dark-mode-footer {
+    background-color: $black;
+    color: $turquoise;
+}

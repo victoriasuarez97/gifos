@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 import LoadingAnimation from "../../assets/icons/loader-dark.svg";
 import NoResultsIllustration from "../../assets/img/pablita-320.png";
 
 import "./Main.scss";
 
-export const Main = ({ results, loading, noResults, theme, showResults }) => {
+export const Main = ({
+    results,
+    loading,
+    noResults,
+    showResults
+}) => {
+    const { theme } = useContext(ThemeContext);
 
     return(
-        <div className={`main-section-container ${theme === "dark" ? "dark-mode-main" : ""}`}>
-            <h3 tabIndex="0">{ results?.data?.length > 0 && showResults ? "Resultados de la búsqueda" : ""}</h3>
+        <div className={`main-section-container ${theme === "dark" && "dark-mode-main"}`}>
+            <h3 tabIndex="0">{(results?.data?.length > 0 && showResults) && "Resultados de la búsqueda"}</h3>
             <div className={loading || noResults ? "show-content" : "hide-content"}>
                 {
                     loading 
                     ? (<object type="image/svg+xml" data={LoadingAnimation}>svg-animation</object>)
                     : (
                         <div className="no-results-wrapper">
-                            <p className="no-results-text" tabIndex="0">{"No encontramos resultados de tu búsqueda :("}</p>
+                            <p className={`no-results-text ${theme === "dark" && "dark-mode-main"}`} tabIndex="0">{"No encontramos resultados de tu búsqueda :("}</p>
                             <img
                                 src={NoResultsIllustration}
                                 alt="sin resultados"

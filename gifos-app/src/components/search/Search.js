@@ -1,5 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 import { Main } from "../main/Main";
 
@@ -8,7 +9,9 @@ import SearchIcon from "../../assets/icons/icon-search-mod-noc.svg";
 
 import "./Search.scss";
 
-export const Search = ({ theme }) => {
+export const Search = () => {
+    const { theme } = useContext(ThemeContext);
+    
     const [search, setSearch] = useState("");
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -21,7 +24,7 @@ export const Search = ({ theme }) => {
     const apiAutocomplete = `${process.env.REACT_APP_API_AUTOCOMPLETE}?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=6&offset=0&rating=g&lang=es`;
 
     useEffect(() => {
-        const getSearchResults = () => {
+        const getSearchResults = async () => {
             setLoading(true);
 
             fetch(apiSearch)
@@ -34,43 +37,37 @@ export const Search = ({ theme }) => {
             .finally(() => {
                 setLoading(false);
                 setNoResults(false);
-                setShowResults(false);
             })
         }
 
-        getSearchResults();
-    }, [search])
-
-    useEffect(() => {
-        const getAutocompleteResults = () => {
+        const getAutocompleteResults = async () => {
             fetch(apiAutocomplete)
             .then((response) => 
                 response.json())
             .then((response) => 
                 setAutocompleteResults(response))
             .catch((error) =>
-                console.error(error));
+                console.error(error))
         }
 
+        getSearchResults();
         getAutocompleteResults();
-    }, [search])
+    }, [search, apiAutocomplete, apiSearch])
 
     const handleInput = (e) => {
         setSearch(e.target.value)
     }
 
     const handleApiCall = () => {
-        if (search !== "") {
-            setAutocompleteResults("");
-            setShowResults(true);
-        } else {
+        if (!Array.isArray(results)) {
             setNoResults(true);
+        } else {
+            setShowResults(true);
         }
     }
 
     const handleSuggestions = (searched) => {
         setSearch(searched);
-        setShowResults(true);
     }
 
     return(
@@ -109,7 +106,6 @@ export const Search = ({ theme }) => {
             results={results}
             loading={loading}
             noResults={noResults}
-            theme={theme}
             showResults={showResults}
         />
     </>

@@ -17,9 +17,14 @@
         font-size: 14px;
         cursor: pointer;
     }
+}
 
+.dark-mode-header {
+    background-color: $black;
+    
     .dark-mode-style {
         background-color: $violet-button;
         color: $white;
     }
 }
+
