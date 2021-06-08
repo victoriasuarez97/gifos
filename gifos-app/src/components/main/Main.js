@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
 import LoadingAnimation from "../../assets/icons/loader-dark.svg";
-import NoResultsIllustration from "../../assets/img/pablita-320.png";
 
 import "./Main.scss";
 
@@ -24,13 +23,13 @@ export const Main = ({
                     ? (<object type="image/svg+xml" data={LoadingAnimation}>svg-animation</object>)
                     : (
                         <div className="no-results-wrapper">
-                            <p className={`no-results-text ${theme === "dark" && "dark-mode-main"}`} tabIndex="0">{"No encontramos resultados de tu búsqueda :("}</p>
-                            <img
-                                src={NoResultsIllustration}
-                                alt="sin resultados"
-                                className="no-results-illustration"
-                                tabIndex="0"
-                            />
+                            <p
+                                className={`no-results-text ${theme === "dark" && "dark-mode-main"}`}         tabIndex="0">
+                                    No encontramos resultados para tu búsqueda 😔
+                                    <br />
+                                    Tal vez la próxima, sea mejor
+                            </p>
+                            <img src="https://media.giphy.com/media/FEuvG7U6wNYEE/source.gif" alt="sad kitty" />
                         </div>
                     )
                 }

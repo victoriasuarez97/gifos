@@ -11,7 +11,7 @@ import "./Search.scss";
 
 export const Search = () => {
     const { theme } = useContext(ThemeContext);
-    
+
     const [search, setSearch] = useState("");
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -22,6 +22,8 @@ export const Search = () => {
     const apiSearch = `${process.env.REACT_APP_API_SEARCH}?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=12&offset=0&rating=g&lang=es`;
 
     const apiAutocomplete = `${process.env.REACT_APP_API_AUTOCOMPLETE}?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=6&offset=0&rating=g&lang=es`;
+
+    console.log(results.data)
 
     useEffect(() => {
         const getSearchResults = async () => {
@@ -52,17 +54,18 @@ export const Search = () => {
 
         getSearchResults();
         getAutocompleteResults();
-    }, [search, apiAutocomplete, apiSearch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [search])
 
-    const handleInput = (e) => {
-        setSearch(e.target.value)
+    const handleInput = (value) => {
+        setSearch(value)
     }
 
     const handleApiCall = () => {
-        if (!Array.isArray(results)) {
-            setNoResults(true);
-        } else {
+        if (results.data.length) {
             setShowResults(true);
+        } else if ((search && !results.data.length) || !search) {
+            setNoResults(true);
         }
     }
 
@@ -80,8 +83,8 @@ export const Search = () => {
                     <input
                         value={search}
                         type="search"
-                        placeholder="Buscar gifs"
-                        onChange={handleInput}
+                        placeholder="Ingresá el gif que quieras ver aquí :)"
+                        onChange={(e) => handleInput(e.target.value)}
                     />
                     <button onClick={handleApiCall}>
                         <img src={SearchIcon} alt="search"/>

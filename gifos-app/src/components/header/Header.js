@@ -18,7 +18,7 @@ export const Header = () => {
             <div className="img-wrapper" tabIndex="0">
                 <img src={GifosLogo} alt="logo"/>
             </div>
-            <button className={theme === "dark" && "dark-mode-style"} onClick={handleTheme}>
+            <button className={theme === "dark" ? "dark-mode-style" : ""} onClick={handleTheme}>
               {theme === "dark" ? "MODO LIGHT" : "MODO DARK"}
             </button>
         </div>

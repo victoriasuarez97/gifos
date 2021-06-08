@@ -8,8 +8,9 @@ import "./Footer.scss"
 
 export const Footer = () => {
     const { theme } = useContext(ThemeContext);
+    
     return(
-        <footer className={theme === "dark" && "dark-mode-footer"}>
+        <footer className={theme === "dark" ? "dark-mode-footer" : ""}>
             Made with 💖 by Victoria Suárez
             <img src={poweredByGiphy} alt="powered by Giphy"/>
         </footer>
