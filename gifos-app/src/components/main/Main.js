@@ -24,7 +24,8 @@ export const Main = ({
                     : (
                         <div className="no-results-wrapper">
                             <p
-                                className={`no-results-text ${theme === "dark" && "dark-mode-main"}`}         tabIndex="0">
+                                className={`no-results-text ${theme === "dark" && "dark-mode-main"}`}
+                                tabIndex="0">
                                     No encontramos resultados para tu búsqueda 😔
                                     <br />
                                     Tal vez la próxima, sea mejor

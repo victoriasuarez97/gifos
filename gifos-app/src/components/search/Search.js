@@ -23,8 +23,6 @@ export const Search = () => {
 
     const apiAutocomplete = `${process.env.REACT_APP_API_AUTOCOMPLETE}?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=6&offset=0&rating=g&lang=es`;
 
-    console.log(results.data)
-
     useEffect(() => {
         const getSearchResults = async () => {
             setLoading(true);
@@ -71,6 +69,7 @@ export const Search = () => {
 
     const handleSuggestions = (searched) => {
         setSearch(searched);
+        handleApiCall();
     }
 
     return(
