@@ -26,7 +26,7 @@ export const Main = ({
                             <p
                                 className={`no-results-text ${theme === "dark" && "dark-mode-main"}`}
                                 tabIndex="0">
-                                    No encontramos resultados para tu búsqueda 😔
+                                    No encontramos resultados para tu búsqueda <span role="img" aria-label="sad emoji">😔</span>
                                     <br />
                                     Tal vez la próxima, sea mejor
                             </p>

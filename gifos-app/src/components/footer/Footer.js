@@ -11,7 +11,7 @@ export const Footer = () => {
     
     return(
         <footer className={theme === "dark" ? "dark-mode-footer" : ""}>
-            Made with 💖 by Victoria Suárez
+            Made with <span role="img" aria-label="heart emoji">💖</span> by Victoria Suárez
             <img src={poweredByGiphy} alt="powered by Giphy"/>
         </footer>
     )
