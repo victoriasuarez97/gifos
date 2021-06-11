@@ -3,6 +3,7 @@
 .main-section-container {
     background: $white;
     transition: all 0.3s;
+    min-height: 40vh;
 
     h3  {
         color: $regular-violet;
