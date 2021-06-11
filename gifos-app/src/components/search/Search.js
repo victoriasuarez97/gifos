@@ -23,6 +23,10 @@ export const Search = () => {
 
     const apiAutocomplete = `${process.env.REACT_APP_API_AUTOCOMPLETE}?api_key=${process.env.REACT_APP_API_KEY}&q=${search}&limit=6&offset=0&rating=g&lang=es`;
 
+    /**
+    * @description useEffect to handle API calls
+    **/
+
     useEffect(() => {
         const getSearchResults = async () => {
             setLoading(true);
@@ -41,19 +45,31 @@ export const Search = () => {
         }
 
         const getAutocompleteResults = async () => {
-            fetch(apiAutocomplete)
-            .then((response) => 
-                response.json())
-            .then((response) => 
-                setAutocompleteResults(response))
-            .catch((error) =>
-                console.error(error))
+            if (!showResults) {
+                fetch(apiAutocomplete)
+                .then((response) => 
+                    response.json())
+                .then((response) => 
+                    setAutocompleteResults(response))
+                .catch((error) =>
+                    console.error(error))
+            }
         }
 
         getSearchResults();
         getAutocompleteResults();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search])
+
+    /**
+    * @description useEffect to handle boolean to show results
+    **/
+
+    useEffect(() => {
+        if (!results?.data?.length) {
+            setShowResults(false);
+        }
+    }, [results.data])
 
     const handleInput = (value) => {
         setSearch(value)
@@ -62,6 +78,7 @@ export const Search = () => {
     const handleApiCall = () => {
         if (results.data.length) {
             setShowResults(true);
+            setAutocompleteResults("");
         } else if ((search && !results.data.length) || !search) {
             setNoResults(true);
         }
@@ -89,7 +106,7 @@ export const Search = () => {
                         <img src={SearchIcon} alt="search"/>
                     </button>
                 </div>
-                <div className="autocomplete-suggestions-wrapper">
+                <div className={`autocomplete-suggestions-wrapper ${showResults && "autocomplete-suggestions-wrapper-hidden"}`}>
                     {
                         autocompleteResults?.data?.map((suggestions, i) =>
                             <div 
